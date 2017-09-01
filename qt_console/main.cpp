@@ -52,5 +52,8 @@ int main(int argc, char *argv[])
         }
 
     }
+    else
+       std::cout << "Wrong params" << std::endl;
+
     return a.exec();
 }

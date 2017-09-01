@@ -77,156 +77,6 @@ namespace IO
 		return false;
 	}
 
-	//inline void to_big_endian64(uint64_t & val)
-	//{
-	//	const int type_size = sizeof(uint64_t);
-	//	uint8_t * byte_buffer = (uint8_t *)&val;
-	//	uint8_t temp = 0;
-	//	for (int iByte = 0; iByte < type_size / 2; ++iByte)
-	//	{
-	//		temp = byte_buffer[iByte];
-	//		byte_buffer[iByte] = byte_buffer[type_size - iByte - 1];
-	//		byte_buffer[type_size - iByte - 1] = temp;
-	//	}
-	//}
-
-
-
-
-        // Read from Canon Marker offset
-//        if (test_file->Open(IO::OpenMode::OpenRead))
-//        {
-//            if (date_offset + date_size > test_file->Size())
-//                return;
-
-//            test_file->setPosition(date_offset);
-//            test_file->ReadData((ByteArray)buff, date_size);
-//            CanonDate * pCanonDate = (CanonDate*) &buff;
-//            pCanonDate->null = 0;
-//            // Canon date.
-//            if ( !isDigitString(pCanonDate->year , 4))
-//            {
-//                std::string src_string(buff);
-//                auto sys_time = toSystemTime(src_string);
-//                if (validateSystemTime(sys_time))
-//                    return getDateAndTimeFromSystemtime(sys_time);
-//            }
-//        }
-//    }
-        //	if (buff[0] == '2' && buff[1] == '0')
-        //	{
-        //		// Canon date
-        //		std::string date_string(buff);
-        //		std::replace(date_string.begin(), date_string.end(), ' ', '-');
-        //		std::replace(date_string.begin(), date_string.end(), '.', '-');
-        //		std::replace(date_string.begin(), date_string.end(), ':', '-');
-
-        //		IO::path_string new_date_str(date_string.begin(), date_string.end());
-
-        //		boost::filesystem::path src_path(filePath);
-        //		auto folder_path = src_path.parent_path().generic_wstring();
-        //		auto only_name_path = src_path.stem().generic_wstring();
-        //		auto ext = src_path.extension().generic_wstring();
-        //		auto new_name = folder_path + L"//" + new_date_str + L"-" + only_name_path + ext;
-        //		test_file->Close();
-        //		try
-        //		{
-        //			boost::filesystem::rename(filePath, new_name);
-        //		}
-        //		catch (const boost::filesystem::filesystem_error& e)
-        //		{
-        //			std::cout << "Error: " << e.what() << std::endl;
-        //		}
-
-        //	}
-        //	else
-        //	{
-        //		// Sony xml creation date
-        //		const std::string temp_xml = "temp.xml";
-        //		std::wstring wtemp_xml = L"temp.xml";
-        //		auto tmp_file = makeFilePtr(wtemp_xml);
-        //		tmp_file->Open(OpenMode::Create);
-
-        //		const char xml_header[] = { 0x3C , 0x3F ,  0x78 , 0x6D , 0x6C };
-        //		const uint32_t xml_header_size = SIZEOF_ARRAY(xml_header);
-
-        //		char buffer[default_block_size];
-        //		ZeroMemory(buffer, default_block_size);
-
-        //		auto file_size = test_file->Size();
-        //		test_file->setPosition(file_size - default_block_size);
-        //		auto bytes_read = test_file->ReadData((ByteArray)buffer, default_block_size);
-        //		if (bytes_read == 0)
-        //		{
-        //			wprintf(L"Error. Read size is 0");
-        //			return;
-        //		}
-
-        //		bool bFoudXml = false;
-        //		// Find xml signauture
-        //		for (uint32_t iByte = 0; iByte < bytes_read - xml_header_size; ++iByte)
-        //		{
-        //			if (memcmp(buffer + iByte, xml_header, xml_header_size) == 0)
-        //			{
-        //				// write to temp file
-        //				tmp_file->WriteData((ByteArray)&buffer[iByte], bytes_read - iByte);
-        //				tmp_file->Close();
-        //				bFoudXml = true;
-        //			}
-        //		}
-
-        //		if (bFoudXml)
-        //		{
-        //			tinyxml2::XMLDocument xml_doc;
-        //			auto xml_result = xml_doc.LoadFile(temp_xml.c_str());
-
-        //			if (xml_result == tinyxml2::XML_SUCCESS)
-        //			{
-        //				auto xml_root = xml_doc.RootElement();
-        //				auto xmlCreationDate = xml_root->FirstChildElement("CreationDate");
-        //				if (xmlCreationDate)
-        //				{
-        //					auto xml_date_text = xmlCreationDate->Attribute("value");
-        //					if (xml_date_text)
-        //					{
-        //						std::string original_date(xml_date_text);
-        //						auto str_date = parse_string_date(xml_date_text);
-        //						std::cout << str_date.c_str();
-
-        //						IO::path_string new_date_str(str_date.begin(), str_date.end());
-
-        //						boost::filesystem::path src_path(filePath);
-        //						auto folder_path = src_path.parent_path().generic_wstring();
-        //						auto only_name_path = src_path.stem().generic_wstring();
-        //						auto ext = src_path.extension().generic_wstring();
-        //						auto new_name = folder_path + L"//" + new_date_str + L"-" + only_name_path + ext;
-
-        //						test_file->Close();
-        //						try
-        //						{
-        //							boost::filesystem::rename(filePath, new_name);
-        //						}
-        //						catch (const boost::filesystem::filesystem_error& e)
-        //						{
-        //							std::cout << "Error: " << e.what() << std::endl;
-        //						}
-
-        //					}
-        //				}
-        //				//auto val_text = xml_date_element->ToText();
-
-        //			}
-        //		}
-
-        //	}
-
-        //}
-
-//    }
-
-
-	
-
 	class QuickTimeRaw
 		: public StandartRaw
 	{
@@ -264,7 +114,6 @@ namespace IO
 		uint64_t readQtAtoms(const uint64_t start_offset, ListQtBlock & list_blocks)
 		{
             qt_block_t qt_block = qt_block_t();
-			uint32_t bytes_read = 0;
 			uint64_t keyword_offset = start_offset;
 			uint64_t full_size = 0;
             uint64_t write_size = 0;
@@ -355,7 +204,9 @@ namespace IO
 		}
 	};
 
-
+    // This function search date string in QuickTime video file
+    // Skip section 'mdat'
+    // Date format YYYY:MM:DD:HH:MM:SS
     inline std::string readQuickTimeDate(const IO::path_string & filePath)
     {
         auto test_file = IO::makeFilePtr(filePath);
@@ -368,7 +219,7 @@ namespace IO
         uint64_t qt_size = 0;
         QuickTimeRaw qt_raw(test_file);
 
-        while( true)
+        while( offset < test_file->Size())
         {
 
             qt_size = qt_raw.readQtBlock(offset,qt_block);
@@ -386,7 +237,7 @@ namespace IO
 
                     DateStruct * pDateStruct = nullptr;
 
-                    for (uint32_t iByte = 0; iByte < bytes_read - CanonDateSize - 1 ; ++iByte )
+                    for (uint32_t iByte = 0; iByte < bytes_read - CanonDateSize ; ++iByte )
                     {
                         pDateStruct = (DateStruct * ) (data.data() + iByte);
                         if ( isDigitsInDateStruct(*pDateStruct))
@@ -422,8 +273,8 @@ namespace IO
 		{
 			setBlockSize(32768);
 			ListQtBlock qt_list;
-			auto target_size = readQtAtoms(start_offset, qt_list);
-			qt_block_t mdat_block = { 0 };
+            readQtAtoms(start_offset, qt_list);
+//            qt_block_t mdat_block = qt_block_t();
 			uint64_t write_size = 0;
 			for (auto theKeyword : qt_list)
 			{
@@ -433,8 +284,8 @@ namespace IO
 					appendToFile(target_file, start_offset, write_size + qt_block_struct_size);
 
 					auto data_array = IO::makeDataArray(getBlockSize());
-					uint64_t mdat_start = start_offset - getBlockSize();
-					uint32_t bytes_read = 0;
+                    //uint64_t mdat_start = start_offset - getBlockSize();
+                    //uint32_t bytes_read = 0;
 					//while (mdat_start>0)
 					//{
 					//	setPosition(mdat_start);
@@ -478,7 +329,7 @@ namespace IO
 		}
 		bool Specify(const uint64_t start_offset) override
 		{
-			return true;
+            return StandartRaw::Specify(start_offset);
 		}
 	};
 	
@@ -603,7 +454,7 @@ namespace IO
 					file_size += moov_pos;
 
 					uint64_t moov_offset = offset - cluster_size + moov_pos;
-					qt_block_t qt_block = { 0 };
+                    qt_block_t qt_block = qt_block_t();
 
 					setPosition(moov_offset);
 					ReadData((ByteArray)&qt_block, qt_block_struct_size);
@@ -638,7 +489,7 @@ namespace IO
 
 		bool Specify(const uint64_t start_offset) override
 		{
-			return true;
+            return StandartRaw::Specify(start_offset);
 		}
 		bool Verify(const IO::path_string & file_path) override
 		{
@@ -651,7 +502,7 @@ namespace IO
 			}
 			QuickTimeRaw qtRaw(target_file);
 			ListQtBlock qtList ;
-			auto file_size = qtRaw.readQtAtoms(0, qtList);
+            qtRaw.readQtAtoms(0, qtList);
 			return qtRaw.isPresentMainKeywords(qtList);
 
 		}
@@ -742,16 +593,12 @@ namespace IO
 				{
 					if (isGPS(data_buffer.data(), data_buffer.size()))
 					{
-
 						gps_file->WriteData(data_buffer.data(), data_buffer.size());
-						int k = 1;
-						k = 2;
 					}
 					else if (is3GF(data_buffer.data(), data_buffer.size()))
 					{
 						thrgf_file->WriteData(data_buffer.data(), data_buffer.size());
-						int k = 1;
-						k = 2;
+
 
 					}
 					else
@@ -768,7 +615,7 @@ namespace IO
 					file_size += moov_pos;
 
 					uint64_t moov_offset = offset + moov_pos;
-					qt_block_t qt_block = { 0 };
+                    qt_block_t qt_block = qt_block_t();
 
 					setPosition(moov_offset);
 					ReadData((ByteArray)&qt_block, qt_block_struct_size);
@@ -795,7 +642,7 @@ namespace IO
 
 		bool Specify(const uint64_t start_offset) override
 		{
-			return true;
+            return StandartRaw::Specify(start_offset);
 		}
 		
 		bool Verify(const IO::path_string & file_path) override
@@ -958,377 +805,377 @@ namespace IO
 		//}
 
 
-/*
 
-	/*
-	Make fragment raw files.
-	1. 'mdat' data block
-	2. Header data ( 'mdat' keyword in the end of block)
+
+
+//	Make fragment raw files.
+//	1. 'mdat' data block
+//	2. Header data ( 'mdat' keyword in the end of block)
 	
-	const uint32_t default_sectors_per_cluster = 64;
-	const uint32_t defalut_cluster_size = default_sector_size * default_sectors_per_cluster;
+//	const uint32_t default_sectors_per_cluster = 64;
+//	const uint32_t defalut_cluster_size = default_sector_size * default_sectors_per_cluster;
 
-	class QuickTimeFragmentRaw
-		: public QuickTimeRaw
-	{
-	private:
-		uint32_t cluster_size_;
-	public:
-		QuickTimeFragmentRaw(IODevice * device)
-			: QuickTimeRaw(device)
-			, cluster_size_(defalut_cluster_size)
-		{
+//	class QuickTimeFragmentRaw
+//		: public QuickTimeRaw
+//	{
+//	private:
+//		uint32_t cluster_size_;
+//	public:
+//		QuickTimeFragmentRaw(IODevice * device)
+//			: QuickTimeRaw(device)
+//			, cluster_size_(defalut_cluster_size)
+//		{
 
-		}
-		void setClusterSize(uint32_t cluster_size)
-		{
-			this->cluster_size_ = cluster_size;
-		}
-		void execute(const path_string & target_folder) override
-		{
-			auto source = this->getDevice();
-			if (!source->Open(OpenMode::OpenRead))
-			{
-				wprintf(L"Error to open.\n");	// ????????
-				return;
-			}
+//		}
+//		void setClusterSize(uint32_t cluster_size)
+//		{
+//			this->cluster_size_ = cluster_size;
+//		}
+//		void execute(const path_string & target_folder) override
+//		{
+//			auto source = this->getDevice();
+//			if (!source->Open(OpenMode::OpenRead))
+//			{
+//				wprintf(L"Error to open.\n");	// ????????
+//				return;
+//			}
 
-			bool bResult = false;
+//			bool bResult = false;
 
-			uint64_t offset = 0;
-			uint64_t header_offset = 0;
-			uint32_t counter = 0;
-			const uint32_t four_clusters = 4;
+//			uint64_t offset = 0;
+//			uint64_t header_offset = 0;
+//			uint32_t counter = 0;
+//			const uint32_t four_clusters = 4;
 
-			uint32_t bytes_read = 0;
+//			uint32_t bytes_read = 0;
 
-			uint32_t cluster_per_mdat = 0;
-			uint64_t mdat_offset = 0;
-			uint64_t mdat_entry = 0;
+//			uint32_t cluster_per_mdat = 0;
+//			uint64_t mdat_offset = 0;
+//			uint64_t mdat_entry = 0;
 
-			while (true)
-			{
-				if (!findHeaderOffset(offset, header_offset))
-				{
-					wprintf(L"Not Found Header\n");
-					break;
-				}
-				auto target_name = toFullPath(target_folder, counter++, L".mp4");
-				File write_file(target_name);
-				if (!write_file.Open(OpenMode::Create))
-				{
-					wprintf(L"Error create file\n");
-					break;
-				}
-				qt_block_t qt_block = {0};
-				uint64_t keyword_offset = header_offset;
+//			while (true)
+//			{
+//				if (!findHeaderOffset(offset, header_offset))
+//				{
+//					wprintf(L"Not Found Header\n");
+//					break;
+//				}
+//				auto target_name = toFullPath(target_folder, counter++, L".mp4");
+//				File write_file(target_name);
+//				if (!write_file.Open(OpenMode::Create))
+//				{
+//					wprintf(L"Error create file\n");
+//					break;
+//				}
+//				qt_block_t qt_block = {0};
+//				uint64_t keyword_offset = header_offset;
 
-				while (true)
-				{
-					qt_block_t qt_block = { 0 };
-					source->setPosition(keyword_offset);
-					int bytes_read = source->ReadData((uint8_t*)&qt_block, sizeof(qt_block_t));
-					if (bytes_read == 0)
-						break;
-					if (qt_block.block_size == 0)
-						break;
+//				while (true)
+//				{
+//					qt_block_t qt_block = { 0 };
+//					source->setPosition(keyword_offset);
+//					int bytes_read = source->ReadData((uint8_t*)&qt_block, sizeof(qt_block_t));
+//					if (bytes_read == 0)
+//						break;
+//					if (qt_block.block_size == 0)
+//						break;
 
-					to_big_endian32((uint32_t &)qt_block.block_size);
+//					to_big_endian32((uint32_t &)qt_block.block_size);
 
 
 
-					if (!isQuickTime(&qt_block))
-						break;
+//					if (!isQuickTime(&qt_block))
+//						break;
 
-					if (memcmp(qt_block.block_type, qt_array[2], qt_keyword_size) == 0)
-					{
-						AppendDataToFile(&write_file, keyword_offset, sizeof(qt_block_t));
-						uint32_t mdat_size = qt_block.block_size;
-						cluster_per_mdat = mdat_size / cluster_size_ + 1;
-						uint32_t mdat_aling_clusters = cluster_per_mdat * cluster_size_;
-						if (header_offset > mdat_aling_clusters)
-						{
-							mdat_offset = header_offset - cluster_per_mdat * cluster_size_;
-							AppendDataToFile(&write_file, mdat_offset, mdat_size - sizeof(qt_block_t));
-						}
+//					if (memcmp(qt_block.block_type, qt_array[2], qt_keyword_size) == 0)
+//					{
+//						AppendDataToFile(&write_file, keyword_offset, sizeof(qt_block_t));
+//						uint32_t mdat_size = qt_block.block_size;
+//						cluster_per_mdat = mdat_size / cluster_size_ + 1;
+//						uint32_t mdat_aling_clusters = cluster_per_mdat * cluster_size_;
+//						if (header_offset > mdat_aling_clusters)
+//						{
+//							mdat_offset = header_offset - cluster_per_mdat * cluster_size_;
+//							AppendDataToFile(&write_file, mdat_offset, mdat_size - sizeof(qt_block_t));
+//						}
 
-						break;
-					}
+//						break;
+//					}
 
-					uint64_t write_size = ReadQtAtomSize(qt_block, keyword_offset);
-					if (write_size == 0)
-						break;
+//					uint64_t write_size = ReadQtAtomSize(qt_block, keyword_offset);
+//					if (write_size == 0)
+//						break;
 
-					auto bytes_written = AppendDataToFile(&write_file, keyword_offset, write_size);
-					if (bytes_written != write_size)
-						break;
+//					auto bytes_written = AppendDataToFile(&write_file, keyword_offset, write_size);
+//					if (bytes_written != write_size)
+//						break;
 
-					keyword_offset += write_size;
-				}
+//					keyword_offset += write_size;
+//				}
 				
 
-				offset = header_offset + cluster_size_;
+//				offset = header_offset + cluster_size_;
 
 
-			}
+//			}
 
-		}
-	};
-
-
-	/*
-
-	1. 'mdat' data block and save offset
-	2. In the end of 'mdat', aling to cluster size and plus one cluster (+1 cluster) must 'ftyp' and 'moov' atom
-	3. Save header data block
-	4. Save 'mdat'.
-
-
-	class CanonFragmentRaw
-		:public QuickTimeRaw
-	{
-	public:
-		CanonFragmentRaw(IODevice * device)
-			: QuickTimeRaw(device)
-		{
-
-
-		}
-		bool isMdat(const qt_block_t * pQtBlock)
-		{
-			if (memcmp(pQtBlock->block_type, s_mdat, qt_keyword_size) == 0)
-				return true;
-			return false;
-		}
-		bool isQuickTimeHeader(const qt_block_t * pQtBlock) override
-		{
-			return isMdat(pQtBlock);
-		}
-		bool findMdatOffset(uint64_t offset, uint64_t & header_offset)
-		{
-			return findHeaderOffset(offset, header_offset);
-		}
-		uint64_t readKeywordsSizes(const uint64_t start_offset, const array_keywords & key_array)
-		{
-			uint64_t keyword_offset = start_offset;
-			auto device = this->getDevice();
-			uint64_t result_size = 0;
-			while (true)
-			{
-				qt_block_t qt_block = { 0 };
-				device->setPosition(keyword_offset);
-				int bytes_read = device->ReadData((uint8_t*)&qt_block, sizeof(qt_block_t));
-				if (bytes_read == 0)
-					return keyword_offset;
-				if (qt_block.block_size == 0)
-					break;
-
-				to_big_endian32((uint32_t &)qt_block.block_size);
-
-				if (!isPresentInArrayKeywords(key_array , qt_block.block_type))
-					break;
-
-				uint64_t theSize = ReadQtAtomSize(qt_block, keyword_offset);
-				if (theSize == 0)
-					break;
-
-				result_size += theSize;
-				keyword_offset += theSize;
-			}
-
-			return result_size;
-		}
-		void execute(const path_string & target_folder)
-		{
-			if (!this->getDevice()->Open(OpenMode::OpenRead))
-			{
-				wprintf(L"Error to open.\n");	// ????????
-				return;
-			}
-
-			bool bResult = false;
-
-			uint64_t offset = 0;
-			uint64_t header_offset = 0;
-			uint32_t counter = 0;
-			while (true)
-			{
-				if (!findMdatOffset(offset, header_offset))
-				{
-					wprintf(L"Not Found Mdat Keyword\n");
-					break;
-				}
-				array_keywords array_mdatANDskip = { s_mdat , s_skip };
-				auto size_MdatFree = readKeywordsSizes(header_offset, array_mdatANDskip);
-				if (size_MdatFree > 0)
-				{
-					uint64_t aling_cluster = size_MdatFree / this->getBlockSize();
-					++aling_cluster;
-					aling_cluster *= this->getBlockSize();
-					uint64_t ftyp_offset = header_offset + aling_cluster;
-					array_keywords array_ftypANDmoov = { s_ftyp , s_moov };
-					auto size_FtypAndMoov = readKeywordsSizes(ftyp_offset, array_ftypANDmoov);
-					if (size_FtypAndMoov > 0)
-					{
-						auto target_file = toFullPath(target_folder, counter++, L".mov");
-						File new_file(target_file);
-						if (new_file.Open(OpenMode::Create))
-						{
-							AppendDataToFile(&new_file, ftyp_offset, size_FtypAndMoov);
-							AppendDataToFile(&new_file, header_offset, size_MdatFree);
-
-							offset = ftyp_offset;
-							offset += this->getBlockSize();
-							continue;
-						}
-
-					}
-
-				}
-				offset += default_sector_size;
-			}
-
-
-		}
+//		}
+//	};
 
 
 
 
-	};
+//	1. 'mdat' data block and save offset
+//	2. In the end of 'mdat', aling to cluster size and plus one cluster (+1 cluster) must 'ftyp' and 'moov' atom
+//	3. Save header data block
+//	4. Save 'mdat'.
+
+
+//	class CanonFragmentRaw
+//		:public QuickTimeRaw
+//	{
+//	public:
+//		CanonFragmentRaw(IODevice * device)
+//			: QuickTimeRaw(device)
+//		{
+
+
+//		}
+//		bool isMdat(const qt_block_t * pQtBlock)
+//		{
+//			if (memcmp(pQtBlock->block_type, s_mdat, qt_keyword_size) == 0)
+//				return true;
+//			return false;
+//		}
+//		bool isQuickTimeHeader(const qt_block_t * pQtBlock) override
+//		{
+//			return isMdat(pQtBlock);
+//		}
+//		bool findMdatOffset(uint64_t offset, uint64_t & header_offset)
+//		{
+//			return findHeaderOffset(offset, header_offset);
+//		}
+//		uint64_t readKeywordsSizes(const uint64_t start_offset, const array_keywords & key_array)
+//		{
+//			uint64_t keyword_offset = start_offset;
+//			auto device = this->getDevice();
+//			uint64_t result_size = 0;
+//			while (true)
+//			{
+//				qt_block_t qt_block = { 0 };
+//				device->setPosition(keyword_offset);
+//				int bytes_read = device->ReadData((uint8_t*)&qt_block, sizeof(qt_block_t));
+//				if (bytes_read == 0)
+//					return keyword_offset;
+//				if (qt_block.block_size == 0)
+//					break;
+
+//				to_big_endian32((uint32_t &)qt_block.block_size);
+
+//				if (!isPresentInArrayKeywords(key_array , qt_block.block_type))
+//					break;
+
+//				uint64_t theSize = ReadQtAtomSize(qt_block, keyword_offset);
+//				if (theSize == 0)
+//					break;
+
+//				result_size += theSize;
+//				keyword_offset += theSize;
+//			}
+
+//			return result_size;
+//		}
+//		void execute(const path_string & target_folder)
+//		{
+//			if (!this->getDevice()->Open(OpenMode::OpenRead))
+//			{
+//				wprintf(L"Error to open.\n");	// ????????
+//				return;
+//			}
+
+//			bool bResult = false;
+
+//			uint64_t offset = 0;
+//			uint64_t header_offset = 0;
+//			uint32_t counter = 0;
+//			while (true)
+//			{
+//				if (!findMdatOffset(offset, header_offset))
+//				{
+//					wprintf(L"Not Found Mdat Keyword\n");
+//					break;
+//				}
+//				array_keywords array_mdatANDskip = { s_mdat , s_skip };
+//				auto size_MdatFree = readKeywordsSizes(header_offset, array_mdatANDskip);
+//				if (size_MdatFree > 0)
+//				{
+//					uint64_t aling_cluster = size_MdatFree / this->getBlockSize();
+//					++aling_cluster;
+//					aling_cluster *= this->getBlockSize();
+//					uint64_t ftyp_offset = header_offset + aling_cluster;
+//					array_keywords array_ftypANDmoov = { s_ftyp , s_moov };
+//					auto size_FtypAndMoov = readKeywordsSizes(ftyp_offset, array_ftypANDmoov);
+//					if (size_FtypAndMoov > 0)
+//					{
+//						auto target_file = toFullPath(target_folder, counter++, L".mov");
+//						File new_file(target_file);
+//						if (new_file.Open(OpenMode::Create))
+//						{
+//							AppendDataToFile(&new_file, ftyp_offset, size_FtypAndMoov);
+//							AppendDataToFile(&new_file, header_offset, size_MdatFree);
+
+//							offset = ftyp_offset;
+//							offset += this->getBlockSize();
+//							continue;
+//						}
+
+//					}
+
+//				}
+//				offset += default_sector_size;
+//			}
+
+
+//		}
+
+
+
+
+//	};
 	
 
-	class QuitTimeRawNoSize
-		: public QuickTimeRaw
-	{
-	public:
-		QuitTimeRawNoSize(IODevice * device)
-			: QuickTimeRaw(device)
-		{
+//	class QuitTimeRawNoSize
+//		: public QuickTimeRaw
+//	{
+//	public:
+//		QuitTimeRawNoSize(IODevice * device)
+//			: QuickTimeRaw(device)
+//		{
 
-		}
-		void execute(const path_string & target_folder) override
-		{
-			auto source = this->getDevice();
-			if (!source->Open(OpenMode::OpenRead))
-			{
-				wprintf(L"Error to open.\n");	// ????????
-				return;
-			}
+//		}
+//		void execute(const path_string & target_folder) override
+//		{
+//			auto source = this->getDevice();
+//			if (!source->Open(OpenMode::OpenRead))
+//			{
+//				wprintf(L"Error to open.\n");	// ????????
+//				return;
+//			}
 
-			bool bResult = false;
+//			bool bResult = false;
 
-			uint64_t offset = 0;
-			uint64_t header_offset = 0;
-			uint32_t counter = 0;
+//			uint64_t offset = 0;
+//			uint64_t header_offset = 0;
+//			uint32_t counter = 0;
 
-			while (true)
-			{
-				if (!findHeaderOffset(offset, header_offset))
-				{
-					wprintf(L"Not Found Header\n");
-					break;
-				}
+//			while (true)
+//			{
+//				if (!findHeaderOffset(offset, header_offset))
+//				{
+//					wprintf(L"Not Found Header\n");
+//					break;
+//				}
 				
-				auto target_file = toFullPath(target_folder, counter++, L".mov");
-				offset = SaveWithOutMDatSize(header_offset, target_file);
-				offset += default_sector_size;
+//				auto target_file = toFullPath(target_folder, counter++, L".mov");
+//				offset = SaveWithOutMDatSize(header_offset, target_file);
+//				offset += default_sector_size;
 
 
-			}
-		}
-		uint64_t SaveWithOutMDatSize( const uint64_t start_offset , const path_string & target_name)
-		{
-			File write_file(target_name);
-			if (!write_file.Open(OpenMode::Create))
-				return start_offset;
+//			}
+//		}
+//		uint64_t SaveWithOutMDatSize( const uint64_t start_offset , const path_string & target_name)
+//		{
+//			File write_file(target_name);
+//			if (!write_file.Open(OpenMode::Create))
+//				return start_offset;
 
-			auto source = this->getDevice();
+//			auto source = this->getDevice();
 
-			qt_block_t qt_atom = { 0 };
+//			qt_block_t qt_atom = { 0 };
 
-			uint32_t bytes_read = 0;
-			uint64_t mdat_offset = 0;
-			uint32_t mdat_target_pos = 0;
-			uint64_t moov_offset = 0;
+//			uint32_t bytes_read = 0;
+//			uint64_t mdat_offset = 0;
+//			uint32_t mdat_target_pos = 0;
+//			uint64_t moov_offset = 0;
 
-			uint64_t current_pos = start_offset;
+//			uint64_t current_pos = start_offset;
 
-			uint64_t full_targe_size = 0;
+//			uint64_t full_targe_size = 0;
 
-			bool bFoundMoov = false;
+//			bool bFoundMoov = false;
 			
-			// read 'ftyp'
-			source->setPosition(current_pos);
-			bytes_read = source->ReadData((ByteArray)&qt_atom, qt_block_struct_size);
-			if (memcmp(qt_atom.block_type, s_ftyp, qt_keyword_size) == 0)
-			{
-			//	printf("%s\t", qt_atom.block_type);
-				to_big_endian32((uint32_t &)qt_atom.block_size);
-				current_pos += qt_atom.block_size;
-				mdat_target_pos = qt_atom.block_size;
+//			// read 'ftyp'
+//			source->setPosition(current_pos);
+//			bytes_read = source->ReadData((ByteArray)&qt_atom, qt_block_struct_size);
+//			if (memcmp(qt_atom.block_type, s_ftyp, qt_keyword_size) == 0)
+//			{
+//			//	printf("%s\t", qt_atom.block_type);
+//				to_big_endian32((uint32_t &)qt_atom.block_size);
+//				current_pos += qt_atom.block_size;
+//				mdat_target_pos = qt_atom.block_size;
 
 
-				source->setPosition(current_pos);
-				bytes_read = source->ReadData((ByteArray)&qt_atom, qt_block_struct_size);
-				if (memcmp(qt_atom.block_type, s_mdat, qt_keyword_size) == 0)
-				{
-					//printf("%s\t", qt_atom.block_type);
+//				source->setPosition(current_pos);
+//				bytes_read = source->ReadData((ByteArray)&qt_atom, qt_block_struct_size);
+//				if (memcmp(qt_atom.block_type, s_mdat, qt_keyword_size) == 0)
+//				{
+//					//printf("%s\t", qt_atom.block_type);
 
-					mdat_offset = current_pos;
+//					mdat_offset = current_pos;
 
-					Buffer buffer(this->getBlockSize());
-					while (true)
-					{
-						source->setPosition(current_pos);
-						bytes_read = source->ReadData(buffer.data, buffer.data_size);
-						if ( bytes_read == 0)
-							break;
+//					Buffer buffer(this->getBlockSize());
+//					while (true)
+//					{
+//						source->setPosition(current_pos);
+//						bytes_read = source->ReadData(buffer.data, buffer.data_size);
+//						if ( bytes_read == 0)
+//							break;
 
-						for (uint32_t iByte = 0; iByte < bytes_read; ++iByte)
-						{
-							qt_block_t * pQt_block = (qt_block_t *)&buffer.data[iByte];
-							if (memcmp(pQt_block->block_type, s_moov, qt_keyword_size) == 0)
-							{
-								//printf("%s\t", pQt_block->block_type);
+//						for (uint32_t iByte = 0; iByte < bytes_read; ++iByte)
+//						{
+//							qt_block_t * pQt_block = (qt_block_t *)&buffer.data[iByte];
+//							if (memcmp(pQt_block->block_type, s_moov, qt_keyword_size) == 0)
+//							{
+//								//printf("%s\t", pQt_block->block_type);
 
-								moov_offset = current_pos;
-								moov_offset += iByte;
+//								moov_offset = current_pos;
+//								moov_offset += iByte;
 
-								full_targe_size = moov_offset - start_offset;
-								to_big_endian32((uint32_t &)pQt_block->block_size);
-								full_targe_size += pQt_block->block_size;
+//								full_targe_size = moov_offset - start_offset;
+//								to_big_endian32((uint32_t &)pQt_block->block_size);
+//								full_targe_size += pQt_block->block_size;
 
-								bFoundMoov = true;
-								break;
-							}
+//								bFoundMoov = true;
+//								break;
+//							}
 
-						}
-						if (bFoundMoov)
-							break;
-						current_pos += bytes_read;
-					}
+//						}
+//						if (bFoundMoov)
+//							break;
+//						current_pos += bytes_read;
+//					}
 
-				}
-			}
+//				}
+//			}
 
-			if (bFoundMoov)
-				if (full_targe_size > 0)
-				{
-					AppendDataToFile(&write_file, start_offset, full_targe_size);
-					uint32_t new_mdat_size = (uint32_t)(moov_offset - mdat_offset);
-					to_big_endian32(new_mdat_size);
+//			if (bFoundMoov)
+//				if (full_targe_size > 0)
+//				{
+//					AppendDataToFile(&write_file, start_offset, full_targe_size);
+//					uint32_t new_mdat_size = (uint32_t)(moov_offset - mdat_offset);
+//					to_big_endian32(new_mdat_size);
 
-					write_file.setPosition(mdat_target_pos);
-					write_file.WriteData((ByteArray)&new_mdat_size, sizeof(uint32_t));
+//					write_file.setPosition(mdat_target_pos);
+//					write_file.WriteData((ByteArray)&new_mdat_size, sizeof(uint32_t));
 
 
-				}
+//				}
 
-			full_targe_size /= default_sector_size;
-			++full_targe_size;
-			full_targe_size *= default_sector_size;
-			full_targe_size += start_offset;
-			return full_targe_size;
-		}
-	};
-	*/
+//			full_targe_size /= default_sector_size;
+//			++full_targe_size;
+//			full_targe_size *= default_sector_size;
+//			full_targe_size += start_offset;
+//			return full_targe_size;
+//		}
+//	};
+

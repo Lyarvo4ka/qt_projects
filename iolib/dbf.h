@@ -38,9 +38,9 @@ inline void fixDBF(const IO::path_string & file_path)
 		wprintf(L"Error open file %s." , file_path.c_str());
 		return;
 	}
-	auto file_size = dbf_file->Size();
+//	auto file_size = dbf_file->Size();
 
-	dbf_header dbf_data = { 0 };
+    dbf_header dbf_data = dbf_header();
 	auto bytes_read = dbf_file->ReadData((IO::ByteArray) &dbf_data, dbf_header_size);
 
 	if (dbf_data.header_size == 0)
@@ -149,7 +149,7 @@ inline void fixDBF(const IO::path_string & file_path)
 		}
 		uint64_t SaveRawFile(File & target_file, const uint64_t start_offset) override
 		{
-			dbf_header header = { 0 };
+            dbf_header header = dbf_header();
 			setPosition(start_offset);
 			auto bytes_read = ReadData((ByteArray)&header, dbf_header_size);
 			if (bytes_read == 0)

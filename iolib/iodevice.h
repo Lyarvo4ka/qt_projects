@@ -47,6 +47,7 @@ namespace IO
         void showMessage(const std::wstring & messageText) override
         {
             wprintf(messageText.c_str());
+            wprintf(l"\n");
         }
     };
 
@@ -286,6 +287,10 @@ namespace IO
         }
         bool Open(OpenMode open_mode) override
         {
+            if ( open_mode == OpenMode::Create)
+            {
+                printf("Error cannot create physical drive");
+            }
             if (physical_drive_)
             {
                 hDrive_ = system_oi_->OpenPhysicalDrive(physical_drive_->getPath());

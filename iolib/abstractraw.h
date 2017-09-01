@@ -414,6 +414,8 @@ namespace IO
 		virtual bool Specify(const uint64_t start_offset) = 0;
 		virtual bool Verify(const IO::path_string & file_path) 
 		{
+            file_path.empty();
+
 			return true;
 		}
 	};

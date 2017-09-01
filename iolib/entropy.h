@@ -14,7 +14,7 @@
 
 namespace IO
 {
-	static double Log2 = log(2.0);
+    const static double Log2 = log(2.0);
 
 	double calcEntropy( BYTE * data, DWORD size );
 	bool calcEntropyForFile(const std::string & file_name, DWORD block_size);

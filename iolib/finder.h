@@ -41,7 +41,7 @@ namespace IO
 		Buffer buffer(sizeToTest);
 		if (file_size >= sizeToTest)
 		{
-			uint64_t lastBlock = file_size /*- sizeToTest*/;
+//			uint64_t lastBlock = file_size /*- sizeToTest*/;
 			file.setPosition(0);
 			auto bytesRead = file.ReadData(buffer.data, buffer.data_size);
 			if (bytesRead == sizeToTest)
@@ -58,8 +58,8 @@ namespace IO
 
 	}
 
-	inline void addDateToFile(const path_string & file_path)
-	{
+//	inline void addDateToFile(const path_string & file_path)
+//	{
 		//File file(file_path);
 		//if (!file.Open(OpenMode::OpenWrite))
 		//{
@@ -121,7 +121,7 @@ namespace IO
 		//
 		//int k = 1;
 		//k = 1;
-	}
+//	}
 
 
 
@@ -236,7 +236,6 @@ namespace IO
 			if (file_size > 0)
 			{
 				uint32_t bytes_read = 0;
-				const int pck_size = sizeof(pck_t);
 
 				Buffer buffer((uint32_t)file_size);
 				bytes_read = file.ReadData(buffer.data, buffer.data_size);
@@ -363,7 +362,7 @@ namespace IO
 		{
 			path_string current_folder = folder_node->getFullPath();
 			path_string mask_folder(addBackSlash(current_folder) + mask_all);
-			WIN32_FIND_DATA findData = { 0 };
+            WIN32_FIND_DATA findData = WIN32_FIND_DATA();
 
 			HANDLE hFindFile = FindFirstFile(mask_folder.c_str(), &findData);
 			if (hFindFile != INVALID_HANDLE_VALUE)

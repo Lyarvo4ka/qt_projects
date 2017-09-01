@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.3.1, 2017-08-23T12:32:34. -->
+<!-- Written by QtCreator 4.3.1, 2017-08-31T19:02:16. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -348,7 +348,7 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/ssavchenko/Source/Repos/qt_projects/qt_console/qt_console.pro</value>
     <value type="bool" key="QmakeProjectManager.QmakeRunConfiguration.UseLibrarySearchPath">true</value>
-    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.CommandLineArguments">d:\test_folder\mov_files\ d:\test_folder\mov_files\result\ </value>
+    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.CommandLineArguments">f:\video\ f:\NoName\mov\</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">qt_console/qt_console.pro</value>
     <value type="bool" key="Qt4ProjectManager.Qt4RunConfiguration.UseDyldImageSuffix">false</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory"></value>

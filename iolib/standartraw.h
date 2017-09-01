@@ -150,10 +150,18 @@ namespace IO
 		}
 		bool Specify(const uint64_t header_offset) override
 		{
-			return true;
+            // return allways true
+            if (header_offset == 0)
+            {
+                // to disable wunused varible
+                // allways true
+            }
+            return true;
 		}
 		bool Verify(const IO::path_string & file_path) override
 		{
+            file_path.empty();
+
 			if ( footer_)
 				return bFoundFooter_;
 			return true;
@@ -312,7 +320,7 @@ namespace IO
 
 		bool Specify(const uint64_t header_offset) override
 		{
-			return true;
+            return StandartRaw::Specify(header_offset);
 		}
 		uint64_t SaveRawFile(File & target_file, const uint64_t start_offset)   override
 		{

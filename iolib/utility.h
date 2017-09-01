@@ -224,9 +224,9 @@ namespace IO
             auto year_str = original_date.substr(0, 4);
             if ( !isDigitString(year_str.c_str(), 4))
                 return SYSTEMTIME();
-                auto int_val = std::stol(year_str);
-                if ( int_val > 1600 && int_val < 30828 )
-                    sys_time.wYear = (WORD)int_val;
+            auto int_val = std::stol(year_str);
+            if ( int_val > 1600 && int_val < 30828 )
+                sys_time.wYear = (WORD)int_val;
             sys_time.wMonth = std::stoi(original_date.substr(5, 2));
             sys_time.wDay = std::stoi(original_date.substr(8, 2));
             sys_time.wHour = std::stoi(original_date.substr(11, 2));
@@ -246,9 +246,9 @@ namespace IO
         if ( sys_time.wYear > 1600 && sys_time.wYear < 30828 )
         if ( sys_time.wMonth >= 1 && sys_time.wMonth <= 12 )
         if ( sys_time.wDay >= 1 && sys_time.wDay <= 31)
-        if ( sys_time.wHour >= 0 && sys_time.wHour <= 23)
-        if ( sys_time.wMinute >= 0 && sys_time.wMinute <= 59)
-        if ( sys_time.wSecond >= 0 && sys_time.wSecond <= 59)
+        if ( sys_time.wHour <= 23)
+        if ( sys_time.wMinute <= 59)
+        if ( sys_time.wSecond <= 59)
             return true;
 
         return false;
@@ -311,139 +311,5 @@ namespace IO
 
 
 
-//    inline std::string readQuickTimeDate(const IO::path_string & filePath)
-//    {
-//        // Read from Canon Marker offset
-//        auto test_file = IO::makeFilePtr(filePath);
-//        const uint32_t date_offset = 0x126;
-//        const uint32_t date_size = CanonDateSize;
-//        char buff[date_size];
-//        ZeroMemory(buff, date_size);
-
-//        if (test_file->Open(IO::OpenMode::OpenRead))
-//        {
-//            if (date_offset + date_size > test_file->Size())
-//                return "";
-
-//            test_file->setPosition(date_offset);
-//            test_file->ReadData((ByteArray)buff, date_size);
-//            CanonDate * pCanonDate = (CanonDate*) &buff;
-//            pCanonDate->null = 0;
-//            if ( !isDigitString(pCanonDate->year , 4))
-//            {
-
-//            }
-//        }
-//        return "";
-        //	if (buff[0] == '2' && buff[1] == '0')
-        //	{
-        //		// Canon date
-        //		std::string date_string(buff);
-        //		std::replace(date_string.begin(), date_string.end(), ' ', '-');
-        //		std::replace(date_string.begin(), date_string.end(), '.', '-');
-        //		std::replace(date_string.begin(), date_string.end(), ':', '-');
-
-        //		IO::path_string new_date_str(date_string.begin(), date_string.end());
-
-        //		boost::filesystem::path src_path(filePath);
-        //		auto folder_path = src_path.parent_path().generic_wstring();
-        //		auto only_name_path = src_path.stem().generic_wstring();
-        //		auto ext = src_path.extension().generic_wstring();
-        //		auto new_name = folder_path + L"//" + new_date_str + L"-" + only_name_path + ext;
-        //		test_file->Close();
-        //		try
-        //		{
-        //			boost::filesystem::rename(filePath, new_name);
-        //		}
-        //		catch (const boost::filesystem::filesystem_error& e)
-        //		{
-        //			std::cout << "Error: " << e.what() << std::endl;
-        //		}
-
-        //	}
-        //	else
-        //	{
-        //		// Sony xml creation date
-        //		const std::string temp_xml = "temp.xml";
-        //		std::wstring wtemp_xml = L"temp.xml";
-        //		auto tmp_file = makeFilePtr(wtemp_xml);
-        //		tmp_file->Open(OpenMode::Create);
-
-        //		const char xml_header[] = { 0x3C , 0x3F ,  0x78 , 0x6D , 0x6C };
-        //		const uint32_t xml_header_size = SIZEOF_ARRAY(xml_header);
-
-        //		char buffer[default_block_size];
-        //		ZeroMemory(buffer, default_block_size);
-
-        //		auto file_size = test_file->Size();
-        //		test_file->setPosition(file_size - default_block_size);
-        //		auto bytes_read = test_file->ReadData((ByteArray)buffer, default_block_size);
-        //		if (bytes_read == 0)
-        //		{
-        //			wprintf(L"Error. Read size is 0");
-        //			return;
-        //		}
-
-        //		bool bFoudXml = false;
-        //		// Find xml signauture
-        //		for (uint32_t iByte = 0; iByte < bytes_read - xml_header_size; ++iByte)
-        //		{
-        //			if (memcmp(buffer + iByte, xml_header, xml_header_size) == 0)
-        //			{
-        //				// write to temp file
-        //				tmp_file->WriteData((ByteArray)&buffer[iByte], bytes_read - iByte);
-        //				tmp_file->Close();
-        //				bFoudXml = true;
-        //			}
-        //		}
-
-        //		if (bFoudXml)
-        //		{
-        //			tinyxml2::XMLDocument xml_doc;
-        //			auto xml_result = xml_doc.LoadFile(temp_xml.c_str());
-
-        //			if (xml_result == tinyxml2::XML_SUCCESS)
-        //			{
-        //				auto xml_root = xml_doc.RootElement();
-        //				auto xmlCreationDate = xml_root->FirstChildElement("CreationDate");
-        //				if (xmlCreationDate)
-        //				{
-        //					auto xml_date_text = xmlCreationDate->Attribute("value");
-        //					if (xml_date_text)
-        //					{
-        //						std::string original_date(xml_date_text);
-        //						auto str_date = parse_string_date(xml_date_text);
-        //						std::cout << str_date.c_str();
-
-        //						IO::path_string new_date_str(str_date.begin(), str_date.end());
-
-        //						boost::filesystem::path src_path(filePath);
-        //						auto folder_path = src_path.parent_path().generic_wstring();
-        //						auto only_name_path = src_path.stem().generic_wstring();
-        //						auto ext = src_path.extension().generic_wstring();
-        //						auto new_name = folder_path + L"//" + new_date_str + L"-" + only_name_path + ext;
-
-        //						test_file->Close();
-        //						try
-        //						{
-        //							boost::filesystem::rename(filePath, new_name);
-        //						}
-        //						catch (const boost::filesystem::filesystem_error& e)
-        //						{
-        //							std::cout << "Error: " << e.what() << std::endl;
-        //						}
-
-        //					}
-        //				}
-        //				//auto val_text = xml_date_element->ToText();
-
-        //			}
-        //		}
-
-        //	}
-
-        //}
-
-//    }
 
 };

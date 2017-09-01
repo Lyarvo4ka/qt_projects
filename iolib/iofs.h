@@ -8,7 +8,7 @@
 
 #include <boost/filesystem.hpp>
 
-#pragma warning(disable:4251)
+//#pragma warning(disable:4251)
 
 namespace IO
 {
