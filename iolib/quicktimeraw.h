@@ -11,6 +11,8 @@
 
 #include <boost\filesystem.hpp>
 
+#include "date.h"
+
 namespace IO
 {
 
@@ -206,7 +208,7 @@ namespace IO
 
     // This function search date string in QuickTime video file
     // Skip section 'mdat'
-    // Date format YYYY:MM:DD:HH:MM:SS
+    // Date format YYYY:MM:DD:hh:mm:ss
     inline std::string readQuickTimeDate(const IO::path_string & filePath)
     {
         auto test_file = IO::makeFilePtr(filePath);
@@ -228,29 +230,17 @@ namespace IO
 
             if ( memcmp(qt_block.block_type , s_mdat, qt_keyword_size ) != 0)
             {
-                if ( qt_size > CanonDateSize )
+                if ( qt_size > DateStructSize + TimeStructSize + 1 )
                 {
                     DataArray data(qt_size);
                     bytes_read = test_file->ReadData(data.data(),data.size());
                     if (bytes_read == 0)
                         break;
 
-                    DateStruct * pDateStruct = nullptr;
+                    auto result_parse = DateParser::findDateinQTAtom((const char *)data.data(),data.size());
+                    if ( !result_parse.empty())
+                        return result_parse;
 
-                    for (uint32_t iByte = 0; iByte < bytes_read - CanonDateSize ; ++iByte )
-                    {
-                        pDateStruct = (DateStruct * ) (data.data() + iByte);
-                        if ( isDigitsInDateStruct(*pDateStruct))
-                        {
-                            DateStruct good_date = DateStruct();
-                            memcpy(&good_date, pDateStruct , CanonDateSize - 1);
-                            good_date.null = 0;
-                            std::string src_date((const char*)&good_date);
-                            auto result_string = parse_string_date(src_date);
-                            if (!result_string.empty())
-                                return result_string;
-                        }
-                    }
                 }
             }
             offset += qt_size;

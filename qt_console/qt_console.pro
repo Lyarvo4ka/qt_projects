@@ -3,7 +3,7 @@ QT -= gui
 
 CONFIG += c++14
 
-TARGET = qt_video_date
+TARGET = qt_test_sing
 CONFIG += console
 CONFIG -= app_bundle
 

@@ -47,7 +47,7 @@ namespace IO
         void showMessage(const std::wstring & messageText) override
         {
             wprintf(messageText.c_str());
-            wprintf(l"\n");
+            wprintf(L"\n");
         }
     };
 

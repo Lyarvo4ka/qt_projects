@@ -26,7 +26,8 @@ SOURCES += main.cpp \
     utilitytest.cpp \
     iodevicetest.cpp \
     physicaldrivetest.cpp \
-    findertest.cpp
+    findertest.cpp \
+    datetest.cpp
 
 HEADERS += \
     fakefile.h \

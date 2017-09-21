@@ -304,32 +304,7 @@ namespace IO
 
             return false;
         }
-        void testSignatureMP4(const IO::path_string & filePath)
-        {
-            auto test_file = IO::makeFilePtr(filePath);
-            //const uint8_t const_header[] = { 0x66 , 0x74 , 0x79 , 0x70/*0x47 , 0x40 , 0x00 , 0x10 , 0x00 , 0x00 , 0xB , 0x011*/ };
-            const uint32_t offset = 4;
-            const uint32_t header_size = 4;
-            uint8_t buff[header_size];
-            ZeroMemory(buff, header_size);
-            if (test_file->Open(IO::OpenMode::OpenRead))
-            {
-                if (test_file->Size() >= header_size)
-                {
-                    test_file->setPosition(offset);
-                    test_file->ReadData(buff, header_size);
-                    test_file->Close();
 
-                    if (isQtSignature(buff,header_size) == false)
-                    {
-                        boost::filesystem::rename(filePath, filePath + L".bad_file");
-                    }
-                }
-
-            }
-
-
-        }
 		void TestEndJpg(const IO::path_string & filePath)
 		{
 			auto test_file = IO::makeFilePtr(filePath);
@@ -418,6 +393,34 @@ namespace IO
 
 
 		}
+    public:
+        void testSignatureMP4(const IO::path_string & filePath)
+        {
+            auto test_file = IO::makeFilePtr(filePath);
+            //const uint8_t const_header[] = { 0x66 , 0x74 , 0x79 , 0x70/*0x47 , 0x40 , 0x00 , 0x10 , 0x00 , 0x00 , 0xB , 0x011*/ };
+            const uint32_t offset = 4;
+            const uint32_t header_size = 4;
+            uint8_t buff[header_size];
+            ZeroMemory(buff, header_size);
+            if (test_file->Open(IO::OpenMode::OpenRead))
+            {
+                if (test_file->Size() >= header_size)
+                {
+                    test_file->setPosition(offset);
+                    test_file->ReadData(buff, header_size);
+                    test_file->Close();
+
+                    if (isQtSignature(buff,header_size) == false)
+                    {
+                        boost::filesystem::rename(filePath, filePath + L".bad_file");
+                    }
+                }
+
+            }
+
+
+        }
+
 
 
 

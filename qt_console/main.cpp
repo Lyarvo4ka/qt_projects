@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    if ( argc == 3)
+ //   if ( argc == 3)
     {
         std::string tmp_src = argv[1];
         IO::path_string src_dir(tmp_src.begin() , tmp_src.end());
@@ -25,6 +25,8 @@ int main(int argc, char *argv[])
 
         for ( auto theFile : fileList )
         {
+            //finder.testSignatureMP4(theFile);
+//        }
             auto str_date = IO::readQuickTimeDate(theFile);
             if ( str_date.empty())
                 continue;
@@ -57,3 +59,34 @@ int main(int argc, char *argv[])
 
     return a.exec();
 }
+
+
+//IO::File src_file(L"d:\\incoming\\42855\\xor.bin");
+//if ( !src_file.Open(IO::OpenMode::OpenRead))
+//    return -1;
+
+//IO::File dst_file(L"d:\\incoming\\42855\\xor_ff.bin");
+//if ( !dst_file.Open(IO::OpenMode::Create))
+//    return -1;
+
+//const uint32_t page_size = 18448;
+//uint8_t buff[page_size];
+//uint64_t offset = 0;
+//uint32_t marker_start = 1024;
+//uint32_t bytes_read = 0;
+// uint32_t bytes_written = 0;
+
+//while(offset<src_file.Size())
+//{
+//   src_file.setPosition(offset);
+//   bytes_read = src_file.ReadData(buff , page_size);
+//   if ( bytes_read == 0)
+//       break;
+
+//   memset(buff + marker_start , 0xFF , 8);
+
+//   bytes_written = dst_file.WriteData(buff , page_size);
+//   if ( bytes_written == 0)
+//       break;
+//   offset += page_size;
+//}

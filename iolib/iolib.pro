@@ -44,7 +44,8 @@ HEADERS += iolib.h \
     rawmpeg.h \
     rawriff.h \
     dbf.h \
-    entropy.h
+    entropy.h \
+    date.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
